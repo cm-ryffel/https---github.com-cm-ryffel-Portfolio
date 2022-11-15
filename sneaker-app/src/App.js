@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Card from './components/Card'
 import Header from './components/Header' 
 import Drawer from './components/Drawer'
@@ -6,33 +7,43 @@ import Drawer from './components/Drawer'
 function App() {
   const[items, setItems] = React.useState([])
   const[cartItems, setCartItems] = React.useState([])
+  const[favorites, setFavorites] = React.useState([])
   const[searchValue, setSearchValue] = React.useState('')
   const[cartOpened, setCartOpened] = React.useState(false)
 
 React.useEffect(() => {
-  fetch('https://6368f2a128cd16bba710a546.mockapi.io/Items')
-    .then((res) => {
-       return res.json()
-    })
-    .then((json) => {
-       setItems(json)
-     })
-}, [])
+    axios.get('https://6368f2a128cd16bba710a546.mockapi.io/Items').then(res => {
+      setItems(res.data)
+    });
+    axios.get('https://6368f2a128cd16bba710a546.mockapi.io/cart').then(res => {
+      setCartItems(res.data)
+    });
+
+  }, [])
 
 const onAddToCart = (obj) => {
-  setCartItems([... cartItems, obj])
-
+  axios.post('https://6368f2a128cd16bba710a546.mockapi.io/cart', obj)
+  setCartItems((prev) => [...prev, obj])
 }
-console.log(cartItems)
+
+const onRemoveItem = (id) => {
+  axios.delete(`https://6368f2a128cd16bba710a546.mockapi.io/cart/${id}`)
+  setCartItems((prev) => prev.filter((item) => item.id !== id))
+}
 
 const onChangeSearchInput = (event) => {
       console.log(event.target.value)
       setSearchValue(event.target.value)
 }
 
+const onAddToFavorite = (obj) => {
+    axios.post('https://6368f2a128cd16bba710a546.mockapi.io/favorites', obj)
+    setFavorites((prev) => [...prev, obj])
+  }
+
   return (
 <div className="wrapper clear">
-      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} />}
+      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />}
       <Header onClickCart={() => setCartOpened(true)} />
   <div className="content p-40">
 
@@ -61,7 +72,7 @@ const onChangeSearchInput = (event) => {
           title = {item.title} 
           price={item.price} 
           imageUrl={item.imageUrl} 
-          onFavorite={() => console.log('Добавил в закладки')}
+          onFavorite={onAddToFavorite}
           onPlus={(obj) => onAddToCart(obj)}
         />
      ))}
