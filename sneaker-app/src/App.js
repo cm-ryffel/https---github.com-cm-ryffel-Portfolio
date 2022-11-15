@@ -1,4 +1,5 @@
 import React from 'react';
+import {Route} from "react-router-dom";
 import axios from 'axios';
 import Card from './components/Card'
 import Header from './components/Header' 
@@ -43,10 +44,13 @@ const onAddToFavorite = (obj) => {
 
   return (
 <div className="wrapper clear">
-      {cartOpened && <Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />}
+      {cartOpened && 
+      (<Drawer items={cartItems} onClose={() => setCartOpened(false)} onRemove={onRemoveItem} />)}
+ 
       <Header onClickCart={() => setCartOpened(true)} />
-  <div className="content p-40">
+      
 
+      <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
         <h1>{searchValue ? `Поиск по запросу "${searchValue}"` : 'Все кроссовки'}</h1>
         <div className="search-block d-flex">
