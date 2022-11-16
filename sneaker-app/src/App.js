@@ -5,6 +5,7 @@ import Card from './components/Card'
 import Header from './components/Header' 
 import Drawer from './components/Drawer'
 
+
 function App() {
   const[items, setItems] = React.useState([])
   const[cartItems, setCartItems] = React.useState([])
@@ -13,7 +14,7 @@ function App() {
   const[cartOpened, setCartOpened] = React.useState(false)
 
 React.useEffect(() => {
-    axios.get('https://6368f2a128cd16bba710a546.mockapi.io/Items').then(res => {
+    axios.get('https://6368f2a128cd16bba710a546.mockapi.io/items').then(res => {
       setItems(res.data)
     });
     axios.get('https://6368f2a128cd16bba710a546.mockapi.io/cart').then(res => {
@@ -52,7 +53,7 @@ const onAddToFavorite = (obj) => {
 
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
-        <h1>{searchValue ? `Поиск по запросу "${searchValue}"` : 'Все кроссовки'}</h1>
+        <h1>{searchValue ? `Searching by your request: "${searchValue}"` : 'All custom clothing'}</h1>
         <div className="search-block d-flex">
             <img src="/img/search.svg" alt="Search" />
             {searchValue &&  
@@ -64,7 +65,7 @@ const onAddToFavorite = (obj) => {
             <input 
             onChange={onChangeSearchInput} 
             value={searchValue} 
-            placeholder="Поиск..." 
+            placeholder="Searhing..." 
             />
         </div>
         </div>

@@ -3,7 +3,7 @@ function Drawer({onClose, onRemove, items = [] }) {
         <div className="overlay">
         <div className="draver">
         <div className="d-flex justify-between">
-        <h2 className="cu-p mb-30">Корзина</h2>
+        <h2 className="cu-p mb-30">Cart</h2>
         <img onClick={onClose} className="cu-p" src="/img/btn-remove.svg" alt="Remove" />
         </div>
 
@@ -15,7 +15,8 @@ function Drawer({onClose, onRemove, items = [] }) {
                     <div className="cartItem d-flex align-center mb-20">
                     <div 
                         style={{ backgroundImage: `url(${obj.imageUrl})` }} 
-                        className="cartItemImg"></div>
+                        className="cartItemImg">
+                    </div>
             
                       <div className="mb-20 flex">
                         <p className="mb-5">{obj.title}</p>
@@ -46,11 +47,11 @@ function Drawer({onClose, onRemove, items = [] }) {
         ) : (
           <div className="cartEmpty d-flex align-center justyfy-center flex-column flex">
           <img className="mb-20 box" width={120} height={120} src="/img/empty-cart.jpg" alt="emptyCart" />
-          <h2>Корзина Пуста</h2>
-          <p className="opacity-6">Добавьте товар в карзину, чтобы сделать заказ</p>
+          <h2>Cart is empty </h2>
+          <p className="opacity-6">Add an item to your cart to place an order</p>
           <button onClick={onClose} className="greenButton">
             <img src="/img/arrow.svg" alt="arrow" />
-            Вернуться назад
+            Back to order
           </button>
         </div>
         )}

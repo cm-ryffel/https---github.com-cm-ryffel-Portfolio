@@ -6,10 +6,10 @@ function Header (props){
         <header className="d-flex justify-between align-center p-40">
       <Link to='/'>
         <div className="d-flex align-center">
-          <img width={40} height={40} src="/img/logo.png" alt="Logo" />
+          <img width={40} height={40} src="/img/satanLinPhoto/logo.jpg" alt="Logo" />
         <div>
-          <h3 className="text-uppercase"> React Sneakers </h3>
-          <p className="opacity-5">Магазин лучших кроссовок</p>
+          <h3 className="text-uppercase"> Nasty S.Lin </h3>
+          <p className="opacity-5">Custom Store</p>
         </div>
         </div>
       </Link>
