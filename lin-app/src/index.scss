@@ -5,7 +5,7 @@ body {
   font-family: 'inter', system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #e7f6ff;
+  background-color: #ffb4f3;
 }
 
 *{
@@ -175,7 +175,7 @@ header{
 .greenButton{
     width: 100%;
     height: 55px;
-    background: #9dd558;
+    background: #a30449;
     border-radius: 18px;
     border: 0;
     color: #fff;
@@ -189,11 +189,11 @@ header{
     }
 
     &:hover{
-      background: lighten(#9dd558, 10%);
+      background: lighten(#d80460, 10%);
     }
 
     &:active{
-      background: darken(#9dd558, 10%);
+      background: darken(#d80460, 10%);
   }
 
 }
