@@ -115,6 +115,10 @@ header{
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
 
+  .container{
+    overflow: auto;
+  }
+
   .items{
     flex: 1;
     overflow: auto;
