@@ -1,4 +1,39 @@
+import React from 'react'
+import AppContext from '../context'
+import Info from './Info'
+import axios from 'axios'
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+
 function Drawer({onClose, onRemove, items = [] }) {
+  const {cartItems, setCartItems} = React.useContext(AppContext)
+  const [orderId, setOoredId] = React.useState(null)
+  const [isOrderCompete, setIsOrderComplete] = React.useState(false)
+  const [isLoading, setIsLoading] = React.useState(false)
+
+  const onClickOrder = async () => {
+
+    try {
+      setIsLoading(true)
+      const {data} = await axios.post('https://6368f2a128cd16bba710a546.mockapi.io/orders', {
+        items: cartItems,
+      });
+      setOoredId(data.id)
+      setIsOrderComplete(true);
+      setCartItems([]);
+
+      for (let i = 0; i < cartItems.length; i++) {
+          const item = cartItems[i];
+          await  axios.delete(`https://6368f2a128cd16bba710a546.mockapi.io/cart/` + item.id)
+          setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(item.id)))
+          await delay(1000)          
+      }
+    } catch (error) {
+      console.log('Error creating order :((')
+    }
+    setIsLoading(false)
+  }
+
     return(
         <div className="overlay">
         <div className="draver">
@@ -9,7 +44,7 @@ function Drawer({onClose, onRemove, items = [] }) {
 
         {
           items.length > 0 ?  (
-            <div className="d-flex flex-column container">
+            <div className="d-flex flex-column flex">
                         <div className="items">
           {items.map((obj) => (
                     <div key={obj.id} className="cartItem d-flex align-center mb-20">
@@ -34,31 +69,35 @@ function Drawer({onClose, onRemove, items = [] }) {
                 <div className="cartTotalBlock">
                 <ul>
                   <li>
-                    <span>Итого:</span>
+                    <span>Total:</span>
                     <div></div>
-                    <b>21 498 руб.</b>
+                    <b>21 498 rub.</b>
                   </li>
                   <li>
-                  <span>Налог 5%:</span>
+                  <span>Tax 5%:</span>
                     <div></div>
-                    <b>1074 руб.</b>
+                    <b>1074 rub.</b>
                   </li>
                 </ul>
-                <button className="greenButton">Оформить заказ <img src="/img/arrow.svg" alt="Arrow" /></button>
+                <button disabled={isLoading} onClick={onClickOrder} className="greenButton">Оформить заказ <img src="/img/arrow.svg" alt="Arrow" /></button>
         
                 </div>
 
             </div>
         ) : (
-          <div className="cartEmpty d-flex align-center justyfy-center flex-column flex">
-          <img className="mb-20 box" width={120} height={120} src="/img/empty-cart.jpg" alt="emptyCart" />
-          <h2>Cart is empty </h2>
-          <p className="opacity-6">Add an item to your cart to place an order</p>
-          <button onClick={onClose} className="greenButton">
-            <img src="/img/arrow.svg" alt="arrow" />
-            Back to order
-          </button>
-        </div>
+          <Info 
+          title={isOrderCompete ? "Order is processed" : "Cart is empty"} 
+          description={
+            isOrderCompete 
+            ? `Your order #${orderId} will be delivered to courier soon` 
+            : "Add an item to your cart to place an order"
+          } 
+          image={
+            isOrderCompete 
+            ? "/img/complete-order.jpg" 
+            : "/img/empty-cart.jpg"
+          } 
+            />
         )}
 
         </div>

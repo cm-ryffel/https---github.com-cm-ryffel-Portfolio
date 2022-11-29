@@ -1,11 +1,9 @@
 import React from 'react';
 import Card from '../components/Card'
-import AppContext from "../context";
 
 
 function Home({
     items,
-    cartItems,  
     searchValue, 
     setSearchValue, 
     onChangeSearchInput, 
@@ -13,8 +11,6 @@ function Home({
     onAddToCart,
     isLoading
 }) {
-
-    const {isItemAdded} = React.useContext(AppContext)
 
     const renderItems = () => {
         
@@ -26,7 +22,6 @@ function Home({
           key={index} 
           onFavorite={(obj) => onAddToFavorite(obj)}
           onPlus={(obj) => onAddToCart(obj)}
-          added={isItemAdded(item && item.id)}
           loading={isLoading}
           {...item}
         />
@@ -53,7 +48,7 @@ function Home({
 </div>
 </div>
 
-<div className="d-flex flex-wrap">
+<div className="d-flex flex-wrap justify-around">
 {renderItems()}
 </div>
 </div>

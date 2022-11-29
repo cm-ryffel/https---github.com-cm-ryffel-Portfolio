@@ -2,10 +2,11 @@
 
 body {
   margin: 0;
+  // padding: 0;
   font-family: 'inter', system-ui;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(235deg, #ffb4f3, transparent);  
+  background: linear-gradient(315deg, #262928, #4ea8ab, #291234 100%);  
 }
 
 *{
@@ -20,7 +21,10 @@ body {
     margin: 50px auto;
 }
 header{  
-    border-bottom: 1px solid #EAEAEA;      
+    // border-bottom: 1px solid #EAEAEA; 
+    background-color: #f1f1f1;
+    border-radius: 13px;
+    
     img{
       margin-right: 15px;
     }
@@ -32,8 +36,12 @@ header{
 }
 
 .content{
+  background-color: #f1f1f1;
+  border-radius: 13px;
+
   h1{
     margin: 0;
+    text-align: center;
   }
 }
 
@@ -72,7 +80,7 @@ header{
 
 
 .search-block{
-  border: 1px solid #f3f3f3;
+  border: 1px solid rgba(0, 0, 0, 0.607);
   border-radius: 10px;
   padding: 0 15px;
   position: relative;
@@ -90,7 +98,9 @@ header{
     border: 0;
     padding: 13px;
     font-size: 16px;
-    width: 200px;
+    width: 100%;
+    display: flex;
+    background-color: #f1f1f1;
   }
 }
 
@@ -114,6 +124,7 @@ header{
   background: #fff;
   box-shadow: -10px 4px 24px rgba(0, 0, 0, 0.1);
   padding: 30px;
+  overflow: scroll;
 
   .container{
     overflow: auto;
@@ -157,6 +168,10 @@ header{
   .greenButton{
     position: relative;
 
+    &:disabled{
+      animation: button-loading 0.7s ease-in-out infinite;
+    }
+
     &:hover{
       img{
         transform: translateX(5px);
@@ -183,6 +198,11 @@ header{
     font-weight: 500;
     cursor: pointer;
     transition: background 0.2s ease-in-out;
+
+    &:disabled{
+      background-color: #bebebe !important;
+      cursor: default;
+    }
 
     svg{
       margin-left: px;
@@ -229,6 +249,19 @@ header{
   transition: opacity 0.15s ease-in-out;
 
   &:hover{
+    opacity: 1;
+  }
+}
+
+
+@keyframes button-loading {
+  0% {
+    opacity: 1;
+  }
+  50%{
+    opacity: .7;
+  }
+  100%{
     opacity: 1;
   }
 }
