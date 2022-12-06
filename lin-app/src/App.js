@@ -6,9 +6,8 @@ import Drawer from './components/Drawer'
 import Home from './pages/Home'
 import Favorites from './pages/Favorites';
 import  AppContext  from "./context";
+import Orders from './pages/Orders';
 
-// import AppContext from './context'; 
-// export const AppContext = React.createContext({})
 
 function App() {
   const[items, setItems] = React.useState([])
@@ -74,7 +73,17 @@ const onAddToFavorite = async (obj) => {
   }
 
   return (
-    <AppContext.Provider value={{ items, cartItems, favorites, isItemAdded, setCartOpened, setCartItems}}>
+    <AppContext.Provider value={{ 
+            items, 
+            cartItems, 
+            favorites, 
+            isItemAdded,
+            onAddToFavorite,
+            onAddToCart, 
+            setCartOpened, 
+            setCartItems
+            }}>
+
       <div className="wrapper clear">
         {cartOpened && 
         (<Drawer 
@@ -100,12 +109,18 @@ const onAddToFavorite = async (obj) => {
             } />
           
           <Route path='/favorites' 
-          element={
-            <Favorites 
-              items={favorites} 
-              onAddToFavorite={onAddToFavorite}/>
-            } 
+            element={
+              <Favorites 
+                items={favorites} 
+                onAddToFavorite={onAddToFavorite}/>
+              } 
             />
+
+              <Route path='/orders' element={
+                <Orders />
+              }/>
+              
+
         </Routes>
 
       </div>

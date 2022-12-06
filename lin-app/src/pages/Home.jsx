@@ -40,7 +40,7 @@ function Home({
     src="/img/btn-remove.svg" 
     alt="Clear" 
     />}
-    <input 
+    <input
     onChange={onChangeSearchInput} 
     value={searchValue} 
     placeholder="Searhing..." 
